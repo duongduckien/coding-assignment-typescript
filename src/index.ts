@@ -1,5 +1,6 @@
 // Utils
 import { MyArray } from './utils/my-array';
+import { MyArrow } from './utils/my-arrow';
 
 class App {
 
@@ -16,6 +17,7 @@ class App {
     this.executeNumberArray();
     this.executeBooleanArray();
     this.executeMixedArray();
+    this.executeArrowFunc();
   }
 
   private executeStringArray() {
@@ -74,6 +76,42 @@ class App {
     } catch (e) {
       if (e.message) {
         this.showLogs('Mixed array', 'error', e.message);
+      } else {
+        console.log(e.message);
+      }
+    }
+  }
+
+  private executeArrowFunc() {
+    try {
+
+      this.showLogs(
+        'The default values are returned when args not given',
+        'result',
+        MyArrow.myFunc({ firstParam: 'defaultFirst', secondParam: 'defaultSecond' })
+      );
+
+      this.showLogs(
+        'The given values are returned when args given',
+        'result',
+        MyArrow.myFunc({ firstParam: 'first', secondParam: 'second' })
+      );
+
+      this.showLogs(
+        'The values are returned when one arg given',
+        'result',
+        MyArrow.myFunc({ firstParam: 'first' })
+      );
+
+      this.showLogs(
+        'The values are returned when one arg given',
+        'result',
+        MyArrow.myFunc({ secondParam: 'second' })
+      );
+
+    } catch (e) {
+      if (e.message) {
+        this.showLogs('Arrow function', 'error', e.message);
       } else {
         console.log(e.message);
       }
