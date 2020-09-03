@@ -93,25 +93,25 @@ class App {
       this.showLogs(
         'The default values are returned when args not given',
         'result',
-        MyArrow.myFunc({ firstParam: 'defaultFirst', secondParam: 'defaultSecond' })
+        MyArrow.myFunc({ firstParam: 'defaultFirst', secondParam: 'defaultSecond' }),
       );
 
       this.showLogs(
         'The given values are returned when args given',
         'result',
-        MyArrow.myFunc({ firstParam: 'first', secondParam: 'second' })
+        MyArrow.myFunc({ firstParam: 'first', secondParam: 'second' }),
       );
 
       this.showLogs(
         'The values are returned when one arg given',
         'result',
-        MyArrow.myFunc({ firstParam: 'first' })
+        MyArrow.myFunc({ firstParam: 'first' }),
       );
 
       this.showLogs(
         'The values are returned when one arg given',
         'result',
-        MyArrow.myFunc({ secondParam: 'second' })
+        MyArrow.myFunc({ secondParam: 'second' }),
       );
 
     } catch (e) {
