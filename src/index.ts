@@ -34,7 +34,7 @@ class App {
       myArray.remove('bbb');
       this.showLogs('String array', 'result', myArray.getvalues());
     } catch (e) {
-      if (e instanceof CustomError) {
+      if (e.name === 'CustomError') {
         this.showLogs('String array', 'error', e.message);
       } else {
         console.log(e);
@@ -51,10 +51,10 @@ class App {
       myArray.remove(2);
       this.showLogs('Number array', 'result', myArray.getvalues());
     } catch (e) {
-      if (e.message) {
+      if (e.name === 'CustomError') {
         this.showLogs('Number array', 'error', e.message);
       } else {
-        console.log(e.message);
+        console.log(e);
       }
     }
   }
@@ -65,7 +65,7 @@ class App {
       myArray.add(true);
       myArray.add(false);
     } catch (e) {
-      if (e instanceof CustomError) {
+      if (e.name === 'CustomError') {
         this.showLogs('Boolean array', 'error', e.message);
       } else {
         console.log(e);
@@ -79,10 +79,10 @@ class App {
       myArray.add(1);
       myArray.add('bbb');
     } catch (e) {
-      if (e.message) {
+      if (e.name === 'CustomError') {
         this.showLogs('Mixed array', 'error', e.message);
       } else {
-        console.log(e.message);
+        console.log(e);
       }
     }
   }
@@ -115,26 +115,38 @@ class App {
       );
 
     } catch (e) {
-      if (e.message) {
+      if (e.name === 'CustomError') {
         this.showLogs('Arrow function', 'error', e.message);
       } else {
-        console.log(e.message);
+        console.log(e);
       }
     }
   }
 
   private executeCaching() {
-    const hundredTimes = Cached.memoize(this.hundredTimes);
-    console.log(hundredTimes(1));
-    console.log(hundredTimes(1));
-    console.log(hundredTimes(2));
-    console.log(hundredTimes(2));
-    console.log(hundredTimes(1));
+    try {
+      const hundredTimes = Cached.memoize(this.hundredTimes);
+      console.log(hundredTimes(1));
+      console.log(hundredTimes(1));
+      console.log(hundredTimes(2));
+      console.log(hundredTimes(2));
+      console.log(hundredTimes(1));
+    } catch (e) {
+      if (e.name === 'CustomError') {
+        this.showLogs('Caching', 'error', e.message);
+      } else {
+        console.log(e);
+      }
+    }
   }
 
-  private hundredTimes(arg: number): number {
+  private hundredTimes(arg?: number): number {
     if (!arg) {
-      throw new Error('You did not pass any argument');
+      throw new CustomError('You did not pass any argument');
+    }
+
+    if (typeof arg !== 'number') {
+      throw new CustomError('Your argument must be number');
     }
     return arg * 100;
   }

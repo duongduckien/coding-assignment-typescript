@@ -6,18 +6,14 @@ export class MyArray {
   private collection: (string | number)[] = [];
 
   public add(value?: any): void {
-    if (!value
-      || value === undefined
-      || value === null
-      || (typeof value !== 'string' && typeof value !== 'number')
-    ) {
-      throw new CustomError('Your value must be string or number');
+    if (!value || (typeof value !== 'string' && typeof value !== 'number')) {
+      throw new CustomError('Your argument must be string or number');
     }
 
     if (this.collection.length) {
       const valueType = typeof this.collection[0];
       if (typeof value !== valueType) {
-        throw new CustomError(`Your value must be ${valueType}`);
+        throw new CustomError(`Your argument must be ${valueType}`);
       } else {
         this.collection.push(value);
       }
