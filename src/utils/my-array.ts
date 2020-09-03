@@ -1,3 +1,6 @@
+// Errors
+import { CustomError } from './custom-error';
+
 export class MyArray {
 
   private collection: (string | number)[] = [];
@@ -8,13 +11,13 @@ export class MyArray {
       || value === null
       || (typeof value !== 'string' && typeof value !== 'number')
     ) {
-      throw new Error('Your value must be string or number');
+      throw new CustomError('Your value must be string or number');
     }
 
     if (this.collection.length) {
       const valueType = typeof this.collection[0];
       if (typeof value !== valueType) {
-        throw new Error(`Your value must be ${valueType}`);
+        throw new CustomError(`Your value must be ${valueType}`);
       } else {
         this.collection.push(value);
       }
