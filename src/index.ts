@@ -3,8 +3,7 @@ import { MyArray } from './utils/my-array';
 import { MyArrow } from './utils/my-arrow';
 import { Cached } from './utils/cached';
 
-// Errors
-// import { CustomError } from './utils/custom-error';
+// Response
 import { CustomResponse } from './utils/custom-response';
 
 class App {
