@@ -4,7 +4,8 @@ import { MyArrow } from './utils/my-arrow';
 import { Cached } from './utils/cached';
 
 // Errors
-import { CustomError } from './utils/custom-error';
+// import { CustomError } from './utils/custom-error';
+import { CustomResponse } from './utils/custom-response';
 
 class App {
 
@@ -28,62 +29,98 @@ class App {
   private executeStringArray() {
     try {
       const myArray = new MyArray();
-      myArray.add('aaa');
-      myArray.add('bbb');
-      myArray.add('ccc');
-      myArray.remove('bbb');
-      this.showLogs('String array', 'result', myArray.getvalues());
-    } catch (e) {
-      if (e.name === 'CustomError') {
-        this.showLogs('String array', 'error', e.message);
-      } else {
-        console.log(e);
+
+      const add1: CustomResponse<MyArray> = myArray.add('aaa');
+      if (!add1.response.status) {
+        this.showLogs('String array', 'error', add1.response.error);
       }
+
+      const add2: CustomResponse<MyArray> = myArray.add('bbb');
+      if (!add2.response.status) {
+        this.showLogs('String array', 'error', add2.response.error);
+      }
+
+      const add3: CustomResponse<MyArray> = myArray.add('ccc');
+      if (!add3.response.status) {
+        this.showLogs('String array', 'error', add3.response.error);
+      }
+
+      const remove1: CustomResponse<MyArray> = myArray.remove('bbb');
+      if (!remove1.response.status) {
+        this.showLogs('String array', 'error', remove1.response.error);
+      }
+
+      const res: CustomResponse<MyArray> = myArray.getvalues();
+      if (!res.response.status) {
+        this.showLogs('String array', 'error', res.response.error);
+      } else {
+        this.showLogs('String array', 'result', res.getValue());
+      }
+    } catch (e) {
+      console.log(e);
     }
   }
 
   private executeNumberArray() {
     try {
       const myArray = new MyArray();
-      myArray.add(1);
-      myArray.add(2);
-      myArray.add(3);
-      myArray.remove(2);
-      this.showLogs('Number array', 'result', myArray.getvalues());
-    } catch (e) {
-      if (e.name === 'CustomError') {
-        this.showLogs('Number array', 'error', e.message);
-      } else {
-        console.log(e);
+
+      const add1: CustomResponse<MyArray> = myArray.add(1);
+      if (!add1.response.status) {
+        this.showLogs('Number array', 'error', add1.response.error);
       }
+
+      const add2: CustomResponse<MyArray> = myArray.add(2);
+      if (!add2.response.status) {
+        this.showLogs('Number array', 'error', add2.response.error);
+      }
+
+      const add3: CustomResponse<MyArray> = myArray.add(3);
+      if (!add3.response.status) {
+        this.showLogs('Number array', 'error', add3.response.error);
+      }
+
+      const remove1: CustomResponse<MyArray> = myArray.remove(2);
+      if (!remove1.response.status) {
+        this.showLogs('Number array', 'error', remove1.response.error);
+      }
+
+      const res: CustomResponse<MyArray> = myArray.getvalues();
+      if (!res.response.status) {
+        this.showLogs('Number array', 'error', res.response.error);
+      } else {
+        this.showLogs('Number array', 'result', res.getValue());
+      }
+    } catch (e) {
+      console.log(e);
     }
   }
 
   private executeBooleanArray() {
     try {
       const myArray = new MyArray();
-      myArray.add(true);
-      myArray.add(false);
+      // myArray.add(true);
+      // myArray.add(false);
     } catch (e) {
-      if (e.name === 'CustomError') {
-        this.showLogs('Boolean array', 'error', e.message);
-      } else {
-        console.log(e);
-      }
+      console.log(e);
     }
   }
 
   private executeMixedArray() {
     try {
       const myArray = new MyArray();
-      myArray.add(1);
-      myArray.add('bbb');
-    } catch (e) {
-      if (e.name === 'CustomError') {
-        this.showLogs('Mixed array', 'error', e.message);
-      } else {
-        console.log(e);
+
+      const add1: CustomResponse<MyArray> = myArray.add(1);
+      if (!add1.response.status) {
+        this.showLogs('Mixed array', 'error', add1.response.error);
       }
+
+      const add2: CustomResponse<MyArray> = myArray.add('bbb');
+      if (!add2.response.status) {
+        this.showLogs('Mixed array', 'error', add2.response.error);
+      }
+    } catch (e) {
+      console.log(e);
     }
   }
 
@@ -115,11 +152,7 @@ class App {
       );
 
     } catch (e) {
-      if (e.name === 'CustomError') {
-        this.showLogs('Arrow function', 'error', e.message);
-      } else {
-        console.log(e);
-      }
+      console.log(e);
     }
   }
 
@@ -132,22 +165,11 @@ class App {
       console.log(hundredTimes(2));
       console.log(hundredTimes(1));
     } catch (e) {
-      if (e.name === 'CustomError') {
-        this.showLogs('Caching', 'error', e.message);
-      } else {
-        console.log(e);
-      }
+      console.log(e);
     }
   }
 
-  private hundredTimes(arg?: number): number {
-    if (!arg) {
-      throw new CustomError('You did not pass any argument');
-    }
-
-    if (typeof arg !== 'number') {
-      throw new CustomError('Your argument must be number');
-    }
+  private hundredTimes(arg: number): number {
     return arg * 100;
   }
 
